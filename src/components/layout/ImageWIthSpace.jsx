@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const WIDTH_BREAK = '600px'
+const WIDTH_BREAK = '700px'
 
 const StyledFlex = styled.div`
   display: flex;
@@ -20,17 +20,21 @@ const StyledImage = styled.div`
 `
 
 const StyledContent = styled.div`
-  background-color: #fff;
-  padding: 30px;
+  background-color: ${(props) => props.theme.white};
+  padding: 30px 50px;
   
   @media (min-width: ${WIDTH_BREAK}) {
-    width: 100%;
-    min-width: calc(${WIDTH_BREAK} - 60px);
+
+    width: calc(${WIDTH_BREAK} - 100px);
   }
 
   @media (max-width: ${WIDTH_BREAK}) {
     width: 100%;
   }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
  
  function ImageWithSpace ({children, image}) {
