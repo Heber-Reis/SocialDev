@@ -9,7 +9,7 @@ import Button from '../src/components/inputs/Button';
 import Input from '../src/components/inputs/Input';
 
 const FormContainer = styled.div`
-  margin-top: 60px;
+  margin-top: 40px;
 `
 
 const Form = styled.form`
@@ -22,25 +22,28 @@ const Text = styled.p`
   text-align: center;
 `
 
-function LoginPage () {
+function SignupPage () {
   return(
     <ImageWithSpace>
       <H1># Social Dev</H1>
       <H4>Tudo que acontece no mundo dev, está aqui!</H4>
       
       <FormContainer>
-        <H2>Entre em sua conta!</H2>
+        <H2>Crie sua conta!</H2>
         <Form>
+          <Input label="Nome" />
+          <Input label="Sobrenome"/>
+          <Input label="User"/>
           <Input label="Digite seu email" type="email"/>
           <Input label="Sua senha" type="password" />
           <Button>Entrar</Button>
         </Form>
       </FormContainer>
       <Text>
-        Não possui uma conta? <Link href='/signup'>Faça seu cadastro!</Link>
+        Já possui uma conta? <Link href='/login'>Faça seu login!</Link>
       </Text>
     </ImageWithSpace>
   )
 }
 
-export default LoginPage;
+export default SignupPage;
