@@ -1,4 +1,4 @@
-import connect from 'next-connect';
+import createHandler from '../../../lib/middleware/nextConnect'
 import Joi from  'joi'
 
 import validate from '../../../lib/middleware/validation'
@@ -14,12 +14,13 @@ const postSchema = Joi.object({
   password: Joi.string().required().max(50).min(6),
 })
 
-const signup = connect()
+const signup = createHandler()
 //função validate => estamos dizendo que vamos validar o body com as validações do postSchema
 //só entra na função da requisição se todos os dados estiverem válidos
-  .post(validate({body: postSchema}),(req,res) => {
-    signupUser(req.body)
-    res.status(200).json({teste: 'ok'})
-  })
+signup.post(validate({body: postSchema}),(req,res) => {
+  console.log("Entrou requisição")
+  signupUser(req.body)
+  res.status(200).json({ ligar: false })
+})
 
 export default signup;
