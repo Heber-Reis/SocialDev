@@ -5,22 +5,14 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import validate from '../../../lib/middleware/validation'
 
 import { signupUser } from '../../../modules/user/user.service'
+import { signupSchema } from '../../../modules/user/user.schema'
 
 import { ironConfig } from '../../../lib/middleware/ironSession'
-
-//validação dos dados recebidos
-const postSchema = Joi.object({
-  firstName: Joi.string().required().max(50),
-  lastName: Joi.string().required().max(50),
-  user: Joi.string().required().max(30),
-  email: Joi.string().email().required().max(100),
-  password: Joi.string().required().max(50).min(6),
-})
 
 const signup = createHandler()
 //função validate => estamos dizendo que vamos validar o body com as validações do postSchema
 //só entra na função da requisição se todos os dados estiverem válidos
-signup.post(validate({body: postSchema}), async (req,res) => {
+signup.post(validate({body: signupSchema}), async (req,res) => {
   try{
     console.log("Entrou requisição")
     const user = await signupUser(req.body)

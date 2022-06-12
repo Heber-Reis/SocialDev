@@ -1,5 +1,7 @@
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { joiResolver } from '@hookform/resolvers/joi'
 
 import ImageWithSpace from '../src/components/layout/ImageWIthSpace';
 import H1 from '../src/components/tipographfy/H1';
@@ -7,6 +9,7 @@ import H4 from '../src/components/tipographfy/H4';
 import H2 from '../src/components/tipographfy/H2';
 import Button from '../src/components/inputs/Button';
 import Input from '../src/components/inputs/Input';
+import { signupSchema } from '../modules/user/user.schema';
 
 const FormContainer = styled.div`
   margin-top: 40px;
@@ -23,6 +26,16 @@ const Text = styled.p`
 `
 
 function SignupPage () {
+
+  const {register, handleSubmit, formState: { errors }} = useForm({
+    resolver: joiResolver(signupSchema)
+  })
+
+  const handleForm = (data) => {
+    console.log(data)
+  }
+
+  console.log(errors)
   return(
     <ImageWithSpace>
       <H1># Social Dev</H1>
@@ -30,13 +43,13 @@ function SignupPage () {
       
       <FormContainer>
         <H2>Crie sua conta!</H2>
-        <Form>
-          <Input label="Nome" />
-          <Input label="Sobrenome"/>
-          <Input label="User"/>
-          <Input label="Digite seu email" type="email"/>
-          <Input label="Sua senha" type="password" />
-          <Button>Entrar</Button>
+        <Form onSubmit={handleSubmit(handleForm)}>
+          <Input label="Nome" {...register('firstName')}/>
+          <Input label="Sobrenome" {...register('lastName')}/>
+          <Input label="User" {...register('user')}/>
+          <Input label="Digite seu email" type="email" {...register('email')}/>
+          <Input label="Sua senha" type="password" {...register('password')}/>
+          <Button type={'submit'}>Entrar</Button>
         </Form>
       </FormContainer>
       <Text>

@@ -4,7 +4,7 @@ const theme = {
   primaryHover: '#7029A8',
   inputBackground: '#F5F5F5',
   inputBorder: '#E6E6E6',
-  background: '#ECECEC',
+  background: '#E8E8E8',
   black: '#3A3A3A',
   white: '#FFF'
 }
