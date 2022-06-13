@@ -10,6 +10,7 @@ import H2 from '../src/components/tipographfy/H2';
 import Button from '../src/components/inputs/Button';
 import Input from '../src/components/inputs/Input';
 import { signupSchema } from '../modules/user/user.schema';
+import { object } from 'joi';
 
 const FormContainer = styled.div`
   margin-top: 40px;
@@ -35,7 +36,6 @@ function SignupPage () {
     console.log(data)
   }
 
-  console.log(errors)
   return(
     <ImageWithSpace>
       <H1># Social Dev</H1>
@@ -44,12 +44,12 @@ function SignupPage () {
       <FormContainer>
         <H2>Crie sua conta!</H2>
         <Form onSubmit={handleSubmit(handleForm)}>
-          <Input label="Nome" {...register('firstName')}/>
-          <Input label="Sobrenome" {...register('lastName')}/>
-          <Input label="User" {...register('user')}/>
-          <Input label="Digite seu email" type="email" {...register('email')}/>
-          <Input label="Sua senha" type="password" {...register('password')}/>
-          <Button type={'submit'}>Entrar</Button>
+          <Input label="Nome" {...register('firstName')} error={errors.firstName}/>
+          <Input label="Sobrenome" {...register('lastName')} error={errors.lastName}/>
+          <Input label="User" {...register('user')} error={errors.user}/>
+          <Input label="Digite seu email" type="email" {...register('email')} error={errors.email}/>
+          <Input label="Sua senha" type="password" {...register('password')} error={errors.password}/>
+          <Button type={'submit'} disabled={Object.keys(errors).length > 0}>Entrar</Button>
         </Form>
       </FormContainer>
       <Text>

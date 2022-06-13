@@ -14,6 +14,11 @@ const Button = styled.button`
   :hover{
     background-color: ${props => props.theme.primaryHover};
   }
+
+  :disabled{
+    background-color: ${props => props.theme.disable};
+    cursor: no-drop;
+  }
 `
 
 export default Button;
