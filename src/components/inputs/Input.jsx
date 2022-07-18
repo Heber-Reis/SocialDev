@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { forwardRef } from 'react';
+import { useController } from 'react-hook-form';
+import React from 'react';
 
 const InputContainer = styled.div`
   width: 100%;
@@ -36,14 +37,21 @@ const errorMessage = {
   'string.min': "A senha deve ter pelo menos 6 caracteres"
 }
 
-const Input = forwardRef(({label, error, ...props}, ref) => {
+const Input = ({label, name, control, defaultValue = '', ...props}) => {
+  const {
+    field: { value, onChange },
+    fieldState: { error },
+  } = useController({ name, control, defaultValue })
+
+  //console.log(control)
+  
   return(
     <InputContainer>
       <StyledLabel>{label}</StyledLabel>
-      <StyledInput placeholder={label} {...props} ref={ref} error={error}/>
+      <StyledInput placeholder={label} {...props} error={error} value={value} onChange={onChange}/>
       {error && <ErrorLabel>{errorMessage[error.type] || error.message}</ErrorLabel>}
     </InputContainer>
   )
-})
+}
 
 export default Input
