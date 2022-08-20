@@ -2,6 +2,8 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { joiResolver } from '@hookform/resolvers/joi'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import ImageWithSpace from '../src/components/layout/ImageWIthSpace';
 import H1 from '../src/components/tipographfy/H1';
@@ -27,13 +29,25 @@ const Text = styled.p`
 `
 
 function SignupPage () {
-
-  const { control, handleSubmit, formState: { errors } } = useForm({
+  const router = useRouter()
+  const { control, handleSubmit, formState: { errors }, setError } = useForm({
     resolver: joiResolver(signupSchema)
   })
 
-  const handleForm = (data) => {
-    console.log(data)
+  const handleForm = async (data) => {
+    try {
+      const { status } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/user/signup`, data)
+      if (status === 201) {
+        router.push('/')
+      }
+    } catch (error) {
+      console.log(error.response.data)
+      if (error.response.data.code === 11000){
+        setError(error.response.data.duplicatedKey, {
+          type: 'duplicated'
+        })
+      }
+    }
   }
 
   return(

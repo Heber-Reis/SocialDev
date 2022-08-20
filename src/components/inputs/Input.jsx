@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useController } from 'react-hook-form';
-import React from 'react';
+
 
 const InputContainer = styled.div`
   width: 100%;
@@ -34,7 +34,8 @@ const ErrorLabel = styled.span`
 const errorMessage = {
   'string.empty': "Este campo é obrigatório",
   'string.email': "Digite um email válido",
-  'string.min': "A senha deve ter pelo menos 6 caracteres"
+  'string.min': "A senha deve ter pelo menos 6 caracteres",
+  'duplicated': "Conta já existente na base de dados!"
 }
 
 const Input = ({label, name, control, defaultValue = '', ...props}) => {
@@ -42,14 +43,12 @@ const Input = ({label, name, control, defaultValue = '', ...props}) => {
     field: { value, onChange },
     fieldState: { error },
   } = useController({ name, control, defaultValue })
-
-  //console.log(control)
   
   return(
     <InputContainer>
       <StyledLabel>{label}</StyledLabel>
       <StyledInput placeholder={label} {...props} error={error} value={value} onChange={onChange}/>
-      {error && <ErrorLabel>{errorMessage[error.type] || error.message}</ErrorLabel>}
+      {error && <ErrorLabel>{errorMessage[error.type] || error.message}{console.log(error.type)}</ErrorLabel>}
     </InputContainer>
   )
 }
