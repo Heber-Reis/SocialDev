@@ -1,11 +1,10 @@
-import Joi, { valid } from "joi";
 import { withIronSessionApiRoute } from 'iron-session/next'
 
 import createHandler from '../../../lib/middleware/nextConnect';
 import validate from '../../../lib/middleware/validation';
 import { login } from '../../../modules/user/user.service';
 
-import { ironConfig } from '../../../lib/middleware/ironSession'
+import { ironConfig } from '../../../lib/middleware/ironSession';
 import { loginSchema } from '../../../modules/user/user.schema'
 
 const handler = createHandler();

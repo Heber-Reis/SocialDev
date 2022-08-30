@@ -24,6 +24,7 @@ export const signupUser = async (body) => {
 
 export const login = async (body) => {
   try {
+    console.log(body)
     const user = await User.findOne({
       //verifica se existe um ou outro caso não exista nenhum dos dois retorna undefined
       $or: [
